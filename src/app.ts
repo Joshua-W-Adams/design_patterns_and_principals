@@ -11,6 +11,6 @@
  * will refer to said file.
  */
 
-import express from './express_rest_api';
+import restfulApi from './restful_api';
 
-console.log(express.app);
+console.log(restfulApi.app);

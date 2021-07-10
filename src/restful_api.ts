@@ -1,7 +1,23 @@
+/*!
+ * RESTful API Example
+ */
+
+/// TODO - must adhere to openAPI spec?
+
+/* ============================== Import Modules ============================ */
+
 import express from 'express';
 
-const PORT = 8080;
+/* ================================ Variables =============================== */
+
+const PORT = process.env.PORT || 8080;
 const app = express();
+
+/* ============================= Private Methods ============================ */
+
+/// n/a
+
+/* ============================== Public Methods ============================ */
 
 /// middleware configuration
 /// parse request bodys from text to json
@@ -9,6 +25,10 @@ app.use(express.json());
 
 /// Check for authentication on all requests
 /// app.use(isAuthenticated)
+
+/// Configure express.js to serve static files.
+/// i.e. all files in directories specified below.
+// app.use('/', express.static(__dirname));
 
 app.listen(PORT, () => {
     console.log(`express server running on http://localhost:${PORT}`);
@@ -22,7 +42,7 @@ app.get('/', (req, res) => {
 /// Sample CRUD operations on shapes API
 
 /// Read request
-app.get('/shapes/:id', (req, res)=> {
+app.get('/shapes/:id', (req, res) => {
     const { id } = req.params;
     /// check for errors
     if (!id) {
@@ -35,7 +55,7 @@ app.get('/shapes/:id', (req, res)=> {
 })
 
 /// Create Request
-app.post('/shapes/:id', (req, res)=> {
+app.post('/shapes/:id', (req, res) => {
     const { id } = req.params;
     if (!id) {
         return res.status(400).send('Please provide a valid shape id');
@@ -44,7 +64,7 @@ app.post('/shapes/:id', (req, res)=> {
 })
 
 /// Update request
-app.put('/shapes/:id', (req, res)=> {
+app.put('/shapes/:id', (req, res) => {
     const { id } = req.params;
     if (!id) {
         return res.status(400).send('Please provide a valid shape id');
@@ -54,10 +74,16 @@ app.put('/shapes/:id', (req, res)=> {
 
 
 /// Delete Request
-app.delete('/shapes/:id', (req, res)=> {
+app.delete('/shapes/:id', (req, res) => {
     const { id } = req.params;
     if (!id) {
         return res.status(400).send('Please provide a valid shape id');
     }
     return res.send(`New shape with id: ${id} deleted successfully`);
 })
+
+/* =========================== Export Public APIs =========================== */
+
+export default {
+    app
+}
